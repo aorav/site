@@ -194,6 +194,7 @@
         price: 175,   // السعر بعد أول 10 قطع (يستخدم للحساب فقط)
         images: ['images/cm1.jpeg','images/cm2.jpeg','images/cm3.jpeg','images/cm4.jpeg','images/mf.webp'],
         video: 'kfZatwPHClA',
+        badge: 'فرصة لزوار المعارض',
         salesCount: 0,
         nfcSlots: { layout: 'duo' },  // شريحتان جنب بعض
         shortDesc: 'منصة ميني بحجم للجيب وميدالية شخصية فيها شريحة لروابطك الشخصية',
@@ -1819,6 +1820,7 @@
       p8: {
         name: 'Exhibitions Bundle — Mini Stand & Smart Medal',
         category: 'Personal Accessories',
+        badge: 'for exhibition visitors',
         shortDesc: 'A pocket-sized mini stand and a personal medal with an NFC chip for your personal links.',
         description: 'Share your personal accounts at exhibitions quickly — through the medal or the pocket-sized mini stand. NFC technology, share your links and make the most of the exhibition season.',
         specs: [
