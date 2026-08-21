@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<!--
+════════════════════════════════════════════════════════════════════
+                    📋 دليل تعديل الموقع
+════════════════════════════════════════════════════════════════════
+
+المشروع مقسّم إلى ثلاثة ملفات:
+  📄 index.html  ← هذا الملف — البنية والمحتوى الثابت والألوان
+  🔗 refs.js     ← سجل المسوّقين (?ref=X → كود يظهر في الواتساب)
+  ⚙️  logic.js    ← كل منطق الموقع (المنتجات، السلة، الترجمة، الواتساب)
+
+للانتقال السريع داخل أي ملف، استخدم Ctrl+F (أو Cmd+F) وابحث عن الرمز:
+
+  🎨 [1]  ألوان الهوية              ← index.html (داخل tailwind config)
+  🖼️ [9]  العرض الترويجي (Hero)      ← index.html (نص HTML مباشر)
+
+  🔤 [2]  الشعار واسم البراند         ← logic.js
+  📱 [3]  رقم الواتساب                ← logic.js
+  💰 [4]  الأسعار (تفعيل/إطفاء)      ← logic.js
+  💾 [5]  حفظ السلة                   ← logic.js
+  🎁 [6]  أكواد الخصم                 ← logic.js
+  🎥 [7]  فيديو اليوتيوب               ← logic.js
+  🛍️ [8]  المنتجات                     ← logic.js
+  🔗 [10] خيارات شرائح NFC           ← logic.js
+  🧩 [11] تخطيطات NFC (متقدّم)       ← logic.js
+  🌐 [12] نظام الترجمة (عربي/إنجليزي) ← logic.js
+
+📁 الصور: ضعها في مجلد باسم "images" بجانب هذا الملف
+   ثم اكتب مساراتها في مصفوفة images داخل كل منتج (في logic.js)
+   مثال: images: ['images/p1-1.webp', 'images/p1-2.webp']
+
+💰 التسعير المتدرّج (لحامل المناديل مثلاً): استخدم priceTiers
+   في المنتج مثال: [{ upTo: 10, price: 140 }, { price: 95 }]
+   → أول 10 قطع بسعر 140، الباقي بسعر 95
+
+📝 الصيغة الموصى بها للصور: WebP، أبعاد 1200×1200، حجم أقل من 300KB
+
+
+════════════════════════════════════════════════════════════════════
+-->
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AORAV — منتجات مخصصة بشعارك</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- تسريع تحميل فيديوهات يوتيوب: نفتح اتصالات مسبقة مع دومينات يوتيوب -->
+  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <link rel="preconnect" href="https://www.google.com">
+  <link rel="preconnect" href="https://i.ytimg.com">
+  <link rel="dns-prefetch" href="https://www.youtube-nocookie.com">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 🎨 [1] ألوان الهوية والخط                            -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--   الألوان مأخوذة من ملف الهوية الرسمي AORAV (2026)   -->
+  <!--   Ink · Cream · Sand · Copper · Muted                -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            // الخط الرسمي للهوية — Tajawal (يغطي العربي واللاتيني)
+            arabic: ['Tajawal', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#f4efe6',  // Cream — خلفية الصفحة الأساسية
+              100: '#e8ded0',  // كريم أعمق — البطاقات والحدود
+              500: '#9a918a',  // Muted — النصوص الثانوية
+              700: '#c27946',  // Copper — لون التفاعل (hover) واللمسات المميزة
+              900: '#0c1011',  // Ink — اللون الأساسي (نصوص، أزرار، شعار)
+            },
+            // ألوان إضافية للهوية — استخدمها عند الحاجة
+            sand:   '#e8cfa8',  // رملي دافئ — للحيّزات الخاصة والمساحات المميزة
+            copper: '#c27946',  // نحاسي (نفس brand-700) — للتمييز الواضح
+            ink:    '#0c1011',  // حبر (نفس brand-900)
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'Tajawal', sans-serif; }
+    .card-hover { transition: transform .25s ease, box-shadow .25s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,.08); }
+    .drawer { transition: transform .3s ease; }
+    .modal-backdrop { background: rgba(0,0,0,.55); }
+    .cart-scroll::-webkit-scrollbar { width: 6px; }
+    .cart-scroll::-webkit-scrollbar-thumb { background: #d6cfc0; border-radius: 3px; }
+
+    /* نظام إخفاء الأسعار — يعمل تلقائياً حين SHOW_PRICES = false */
+    body.no-prices .price-tag,
+    body.no-prices .price-block,
+    body.no-prices .discount-section,
+    body.no-prices .total-row { display: none !important; }
+
+    /* شبكة الصور المصغّرة في تفاصيل المنتج */
+    .thumb-active { border-color: #c27946 !important; }
+
+    /* شارة المنتج المُلفتة — تدرّج نحاسي هادئ، بحركة انسيابية بطيئة */
+    @keyframes badge-shimmer {
+      0%   { background-position: 200% 50%; }
+      100% { background-position: -200% 50%; }
+    }
+    .badge-eye {
+      background: linear-gradient(100deg, #c27946 0%, #d99568 50%, #c27946 100%);
+      background-size: 200% 100%;
+      animation: badge-shimmer 8s linear infinite;
+      color: white;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 8px rgba(194, 121, 70, 0.25);
+    }
+
+    /* نبضة النقاط على الخريطة (تُركت للاستخدام المستقبلي — لا يوجد خريطة حالياً) */
+    @keyframes map-ripple {
+      0%   { r: 5; opacity: 0.7; }
+      100% { r: 20; opacity: 0; }
+    }
+    .map-ripple-circle {
+      animation: map-ripple 2.2s ease-out infinite;
+    }
+    @keyframes map-dot-pulse {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.15); }
+    }
+    .map-dot {
+      transform-origin: center;
+      transform-box: fill-box;
+      animation: map-dot-pulse 2.2s ease-in-out infinite;
+    }
+
+    /* شريط شعارات العملاء — لا نهائي */
+    @keyframes logo-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .logo-marquee {
+      overflow: hidden;
+      position: relative;
+      direction: ltr; /* نجبر LTR داخل الشريط لضمان سلوك ثابت رغم RTL للصفحة */
+      -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+              mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    }
+    .logo-track {
+      display: flex;
+      width: max-content;
+      animation: logo-scroll 40s linear infinite;
+      will-change: transform;
+    }
+    .logo-marquee:hover .logo-track { animation-play-state: paused; }
+    .logo-track img {
+      height: 44px;
+      width: auto;
+      max-width: 140px;
+      object-fit: contain;
+      margin-right: 2.5rem;   /* استخدمنا margin بدل gap ليضمن حلقة سلسة بلا قفزة */
+      flex-shrink: 0;
+      filter: grayscale(100%);
+      opacity: 0.65;
+      transition: filter 0.3s, opacity 0.3s;
+    }
+    .logo-track img:hover {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+  </style>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1375153547910536');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1375153547910536&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+<body class="bg-brand-50 text-brand-900 min-h-screen">
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- Header (الشعار واسم البراند يُضبطون من JS [2])       -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-brand-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div>
+          <h1 id="brandName" class="sr-only"></h1>
+          <div id="brandLogo"></div>
+          <p id="brandTagline" class="text-[10px] text-brand-500 mt-1 tracking-wider"></p>
+        </div>
+      </div>
+
+      <div class="hidden sm:flex items-center gap-4">
+        <span class="text-sm text-brand-500">أهلاً بك، <span id="guestName" class="font-semibold text-brand-900">ضيفنا الكريم</span></span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="langToggleBtn" onclick="toggleLanguage()" title="Change language / تغيير اللغة" class="flex items-center justify-center bg-white border border-brand-100 text-brand-900 w-10 h-10 rounded-lg hover:bg-brand-50 hover:border-brand-500 transition font-bold text-sm">
+          EN
+        </button>
+        <button onclick="toggleCart(true)" class="relative flex items-center gap-2 bg-brand-900 text-white px-4 py-2 rounded-lg hover:bg-brand-700 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+          <span>السلة</span>
+          <span id="cartBadge" class="absolute -top-2 -left-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 🖼️ [9] العرض الترويجي (Hero) — عدّل النصوص هنا       -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 pt-8">
+    <div class="relative overflow-hidden rounded-2xl bg-brand-900 text-white p-8 sm:p-12">
+      <div class="relative z-10 max-w-2xl">
+        <span class="inline-block bg-white/10 text-xs px-3 py-1 rounded-full mb-4 tracking-wider">افتتاح كاتالوج AORAV</span>
+        <h2 class="text-3xl sm:text-4xl font-bold mb-3">أهلاً بك في متجرنا</h2>
+        <p class="text-white/70 mb-6 leading-relaxed">
+          منتجات مخصصة تحمل شعارك، مصنوعة بالطباعة ثلاثية الأبعاد في بينبع. تقنية NFC مدمجة تربط زبونك بحساباتك بلمسة واحدة.
+        </p>
+        <a href="#products" class="inline-block bg-brand-50 text-brand-900 px-6 py-3 rounded-lg font-semibold hover:bg-white transition">
+          تصفّح المنتجات
+        </a>
+      </div>
+      <!-- لمسات خفيفة من الهوية -->
+      <div class="absolute -left-16 -bottom-16 w-64 h-64 bg-brand-700/15 rounded-full blur-2xl"></div>
+      <div class="absolute left-24 top-8 w-32 h-32 bg-white/5 rounded-full"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- شريط شعارات العملاء — ملتصق ببطاقة الـ Hero         -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <div id="clientsSection" class="mt-4 bg-white/60 backdrop-blur border border-brand-100 rounded-2xl px-4 sm:px-6 py-5 hidden">
+      <div class="flex items-center justify-center mb-3">
+        <h3 id="clientsTitle" class="text-xs font-semibold text-brand-500 tracking-widest uppercase">اختاروا AORAV</h3>
+      </div>
+      <div class="logo-marquee">
+        <div id="clientsTrack" class="logo-track"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- شبكة المنتجات (تُبنى من مصفوفة products في JS [8])   -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <h3 class="text-2xl font-bold">منتجاتنا</h3>
+        <p class="text-brand-500 text-sm mt-1">اضغط على المنتج لعرض التفاصيل وإضافته للسلة</p>
+      </div>
+    </div>
+    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 🎥 [7] قسم الفيديو (يظهر تلقائياً إذا YOUTUBE_VIDEO_ID) -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section id="videoSection" class="max-w-4xl mx-auto px-4 sm:px-6 pb-12 hidden">
+    <div class="text-center mb-6">
+      <h3 id="videoTitle" class="text-2xl font-bold mb-2"></h3>
+      <p id="videoDesc" class="text-brand-500 text-sm max-w-2xl mx-auto"></p>
+    </div>
+    <div id="videoContainer" onclick="playVideoInline()"
+         class="relative w-full rounded-2xl overflow-hidden shadow-lg bg-brand-900 cursor-pointer group"
+         style="aspect-ratio: 16 / 9;">
+      <img id="videoThumb" src="" alt=""
+        class="absolute inset-0 w-full h-full object-cover opacity-95 group-hover:opacity-100 transition"
+        onerror="this.style.display='none'" />
+      <!-- طبقة داكنة خفيفة لإبراز زر التشغيل -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+      <!-- زر التشغيل -->
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="w-20 h-20 sm:w-24 sm:h-24 bg-red-600 group-hover:bg-red-700 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
+          <svg viewBox="0 0 24 24" fill="white" class="w-10 h-10 sm:w-12 sm:h-12" style="margin-right: -4px;">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+      </div>
+      <!-- شارة صغيرة -->
+      <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur text-white text-xs px-3 py-1.5 rounded-full pointer-events-none">
+        اضغط للتشغيل
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- Modal: تفاصيل المنتج (مع شريط صور مصغّرة)             -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="modal-backdrop absolute inset-0" onclick="closeProductModal()"></div>
+    <div class="relative bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto cart-scroll">
+      <button onclick="closeProductModal()" class="absolute top-4 left-4 z-10 w-9 h-9 rounded-full bg-white/90 hover:bg-brand-100 flex items-center justify-center shadow">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <div class="grid md:grid-cols-2 gap-0">
+        <!-- منطقة الصور: صورة كبيرة + شريط مصغّرات + شارة المنتج فوق الصورة -->
+        <div class="bg-brand-50 relative">
+          <!-- الشارة تظهر فوق الصورة في الزاوية اليمنى بعيداً عن زر الإغلاق -->
+          <div class="absolute top-3 right-3 z-20 pointer-events-none">
+            <span id="modalBadge" class="hidden badge-eye text-[11px] font-bold px-3 py-1.5 rounded-full items-center gap-1.5">
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18.2 22 12 18.3 5.8 22l1.7-7.2L2 10l7.1-1.1z"/>
+              </svg>
+              <span id="modalBadgeText"></span>
+            </span>
+          </div>
+          <div id="modalMainImage" class="aspect-square"></div>
+          <div id="modalThumbs" class="flex gap-2 p-3 overflow-x-auto"></div>
+        </div>
+
+        <div class="p-8">
+          <span id="modalCategory" class="text-xs text-brand-500 uppercase tracking-wide"></span>
+          <h4 id="modalName" class="text-2xl font-bold mt-2 mb-2"></h4>
+          <p id="modalPrice" class="price-tag text-lg font-bold text-brand-700 mb-1"></p>
+          <p id="modalTierNote" class="price-tag text-xs text-brand-500 mb-3 hidden"></p>
+          <p id="modalSalesCount" class="text-xs text-brand-500 mb-3 hidden"></p>
+          <div id="modalStandBadge" class="mb-3 hidden">
+            <span class="inline-flex items-center gap-1.5 bg-green-50 text-green-800 text-xs font-semibold px-3 py-1.5 rounded-full">
+              🎁 يشمل حامل منصة مجاناً
+            </span>
+          </div>
+          <p id="modalDescription" class="text-brand-900/75 text-sm leading-relaxed mb-4"></p>
+
+          <div class="border-t border-brand-100 pt-4 mb-4">
+            <p class="text-xs text-brand-500 mb-2">المواصفات</p>
+            <ul id="modalSpecs" class="text-sm space-y-1"></ul>
+          </div>
+
+          <!-- منطقة تكوين شرائح NFC — تظهر فقط للمنتجات التي فيها nfcSlots -->
+          <div id="nfcConfigurator" class="mb-4"></div>
+
+          <!-- الإضافات الاختيارية — تظهر فقط لو المنتج فيه addons مفعّلة -->
+          <div id="addonsSelector" class="mb-4"></div>
+
+          <div class="flex items-center gap-3 mb-6">
+            <span class="text-xs text-brand-500">الكمية</span>
+            <div class="flex items-center border border-brand-100 rounded-lg">
+              <button onclick="modalDecQty()" class="px-3 py-1 hover:bg-brand-50">−</button>
+              <span id="modalQty" class="px-4 py-1 border-x border-brand-100 min-w-[3rem] text-center">1</span>
+              <button onclick="modalIncQty()" class="px-3 py-1 hover:bg-brand-50">+</button>
+            </div>
+          </div>
+
+          <button onclick="addModalToCart()" class="w-full bg-brand-900 text-white py-3 rounded-lg font-semibold hover:bg-brand-700 transition">
+            أضف إلى السلة
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- Cart Drawer                                          -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 hidden">
+    <div class="modal-backdrop absolute inset-0" onclick="toggleCart(false)"></div>
+    <aside class="drawer absolute top-0 right-0 h-full w-full sm:w-[420px] bg-white shadow-2xl flex flex-col">
+      <div class="p-5 border-b border-brand-100 flex items-center justify-between">
+        <h4 class="text-lg font-bold">سلتك</h4>
+        <button onclick="toggleCart(false)" class="w-9 h-9 rounded-full bg-brand-50 hover:bg-brand-100 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div id="cartItems" class="flex-1 overflow-y-auto p-5 space-y-4 cart-scroll">
+        <p id="emptyCartMsg" class="text-center text-brand-500 py-16">سلتك فارغة الآن</p>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- ترقيات السلة — تحفّز العميل يضيف عناصر مكمّلة        -->
+      <!-- ═══════════════════════════════════════════════════ -->
+      <div id="cartUpsells" class="border-t border-brand-100 bg-brand-50/60 px-4 py-4 space-y-3">
+        <p class="text-[11px] font-bold text-brand-500 tracking-wider">أضف لطلبك</p>
+
+        <!-- ترقية ١ — ميداليات مخصصة (مضاعفات 10، بلا سعر) -->
+        <div class="bg-white border border-brand-100 rounded-xl p-3">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-lg bg-brand-50 flex items-center justify-center text-brand-900 flex-shrink-0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15"/><circle cx="12" cy="17" r="5"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-sm">ميداليات مخصصة بشعارك</p>
+              <p class="text-[11px] text-brand-500 leading-tight mt-0.5">قطع مميزة بشعار محلك — الكمية بمضاعفات 10</p>
+            </div>
+          </div>
+          <div class="flex items-center justify-between mt-3">
+            <div class="flex items-center border border-brand-100 rounded-lg bg-white">
+              <button onclick="medalsQtyChange(-10)" class="px-3 py-1 text-sm hover:bg-brand-50">−</button>
+              <span id="medalsQtyDisplay" class="px-4 py-1 border-x border-brand-100 text-sm font-semibold min-w-[3rem] text-center">10</span>
+              <button onclick="medalsQtyChange(10)" class="px-3 py-1 text-sm hover:bg-brand-50">+</button>
+            </div>
+            <button onclick="addMedalsToCart()" class="bg-brand-900 text-white text-xs font-semibold px-3 py-2 rounded-lg hover:bg-brand-700 transition">
+              أضف للسلة
+            </button>
+          </div>
+        </div>
+
+        <!-- ترقية ٢ — أوراف ميني كبطاقة شخصية -->
+        <div class="bg-white border border-brand-100 rounded-xl p-3">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-lg bg-brand-50 flex items-center justify-center text-brand-900 flex-shrink-0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="14" x2="10" y2="14"/></svg>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-sm">أضفها كبطاقة شخصية</p>
+              <p class="text-[11px] text-brand-500 leading-tight mt-0.5">أوراف ميني — بطاقة NFC محمولة تحمل هويتك في جيبك</p>
+            </div>
+          </div>
+          <div class="flex justify-end mt-3">
+            <button onclick="addMiniAsCard()" class="bg-brand-900 text-white text-xs font-semibold px-3 py-2 rounded-lg hover:bg-brand-700 transition">
+              أضف للسلة
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-5 border-t border-brand-100 space-y-3">
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-brand-500">مجموع القطع</span>
+          <span id="cartTotalItems" class="font-semibold">0</span>
+        </div>
+        <div class="price-block flex items-center justify-between text-base">
+          <span class="text-brand-500">المجموع</span>
+          <span id="cartTotalPrice" class="font-bold text-brand-900">0 ر.س</span>
+        </div>
+        <button onclick="openCheckout()" id="checkoutBtn" class="w-full bg-brand-900 text-white py-3 rounded-lg font-semibold hover:bg-brand-700 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+         ارسل الطلب بدون دفع على الواتس اب
+        </button>
+        <button onclick="confirmClearCart()" id="clearCartBtn" class="w-full text-xs text-red-500 hover:text-red-700 hover:underline py-1 hidden">
+          بدء طلب جديد (تفريغ السلة)
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- Checkout Modal                                       -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="checkoutModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="modal-backdrop absolute inset-0" onclick="closeCheckout()"></div>
+    <div class="relative bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto cart-scroll">
+      <div class="p-6 border-b border-brand-100 flex items-center justify-between sticky top-0 bg-white z-10">
+        <h4 class="text-lg font-bold">إتمام الطلب</h4>
+        <button onclick="closeCheckout()" class="w-9 h-9 rounded-full bg-brand-50 hover:bg-brand-100 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-6">
+        <p class="text-sm text-brand-500 mb-5">
+          املأ بياناتك، وسنفتح لك واتساب برسالة طلب جاهزة. أرفق شعارك في المحادثة وأرسل.
+        </p>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">الاسم <span class="text-red-500">*</span></label>
+            <input id="f_name" type="text" class="w-full border border-brand-100 rounded-lg px-3 py-2 focus:outline-none focus:border-brand-500" required />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">اسم المحل التجاري <span class="text-red-500">*</span></label>
+            <input id="f_business" type="text" class="w-full border border-brand-100 rounded-lg px-3 py-2 focus:outline-none focus:border-brand-500" required />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">المدينة <span class="text-red-500">*</span></label>
+            <input id="f_city" type="text" placeholder="مثال: ينبع، جدة، الرياض" class="w-full border border-brand-100 rounded-lg px-3 py-2 focus:outline-none focus:border-brand-500" required />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">رقم الجوال <span class="text-red-500">*</span></label>
+            <input id="f_phone" type="tel" pattern="05[0-9]{8}" placeholder="05xxxxxxxx" class="w-full border border-brand-100 rounded-lg px-3 py-2 focus:outline-none focus:border-brand-500" required />
+            <p class="text-xs text-brand-500 mt-1">رقم سعودي يبدأ بـ 05</p>
+          </div>
+
+          <div class="discount-section">
+            <label class="block text-sm font-medium mb-1">كود الخصم <span class="text-brand-500 text-xs">(اختياري)</span></label>
+            <div class="flex gap-2">
+              <input id="f_discount" type="text" placeholder="أدخل الكود إن وجد" class="flex-1 border border-brand-100 rounded-lg px-3 py-2 focus:outline-none focus:border-brand-500 uppercase" />
+              <button type="button" onclick="applyDiscount()" class="px-4 py-2 bg-brand-100 hover:bg-brand-500 hover:text-white rounded-lg text-sm font-medium transition">تطبيق</button>
+            </div>
+            <p id="discountFeedback" class="text-xs mt-1 hidden"></p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-1">ملاحظات إضافية</label>
+            <textarea id="f_notes" rows="3" class="w-full border border-brand-100 rounded-lg px-3 py-2 focus:outline-none focus:border-brand-500"></textarea>
+          </div>
+        </div>
+
+        <div class="price-block mt-6 p-4 bg-brand-50 rounded-lg space-y-2 text-sm">
+          <div class="flex justify-between">
+            <span class="text-brand-500">المجموع الفرعي</span>
+            <span id="checkoutSubtotal" class="font-semibold">0 ر.س</span>
+          </div>
+          <div id="checkoutDiscountRow" class="flex justify-between text-green-700 hidden">
+            <span>الخصم <span id="checkoutDiscountLabel"></span></span>
+            <span id="checkoutDiscountAmount">- 0 ر.س</span>
+          </div>
+          <div class="flex justify-between total-row pt-2 border-t border-brand-100">
+            <span class="font-bold">الإجمالي</span>
+            <span id="checkoutTotal" class="font-bold text-brand-900">0 ر.س</span>
+          </div>
+        </div>
+
+        <button onclick="submitOrder()" class="w-full mt-6 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition flex items-center justify-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          إرسال عبر واتساب
+        </button>
+        <p class="text-xs text-brand-500 mt-3 text-center">سيفتح واتساب برسالة جاهزة — أرفق شعارك (PDF/صورة) وأرسل</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-brand-900 text-white px-5 py-3 rounded-lg shadow-lg hidden z-[60]"></div>
+
+  <footer class="border-t border-brand-100 bg-white mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <div>
+          <h4 class="font-bold text-brand-900 mb-3">AORAV</h4>
+          <p class="text-sm text-brand-500 leading-relaxed">
+            نصمم ونصنع حوامل طاولات ذكية مطبوعة 3D ومخصصة بالكامل لعلامتك التجارية، تنقل عملاءك بلمسة جوال واحدة إلى صفحة تقييم جوجل، السوشيال ميديا، والمنيو الرقمي.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-brand-900 mb-3">تواصل معنا</h4>
+          <ul class="text-sm text-brand-500 space-y-2.5">
+            <li>
+              <a href="https://wa.me/966511524229" target="_blank" class="flex items-center gap-2.5 hover:text-brand-900 transition group">
+                <svg class="w-5 h-5 text-brand-500 group-hover:text-green-600 transition flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+                <span>966511524229+</span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:aoravbeta@gmail.com" class="flex items-center gap-2.5 hover:text-brand-900 transition group">
+                <svg class="w-5 h-5 text-brand-500 group-hover:text-brand-900 transition flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  <path d="m22 7-10 5L2 7"></path>
+                </svg>
+                <span>aoravbeta@gmail.com</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://instagram.com/aorav.sa" target="_blank" class="flex items-center gap-2.5 hover:text-brand-900 transition group">
+                <svg class="w-5 h-5 text-brand-500 group-hover:text-pink-600 transition flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+                <span>@aorav.sa</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/@Aorav.1" target="_blank" class="flex items-center gap-2.5 hover:text-brand-900 transition group">
+                <svg class="w-5 h-5 text-brand-500 group-hover:text-red-600 transition flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                <span>youtube.com/@Aorav.1</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-brand-900 mb-3">تسويق بالعمولة</h4>
+          <p class="text-sm text-brand-500 leading-relaxed mb-3">
+            هل أنت مسوق أو صانع محتوى؟ انضم لبرنامج العمولة الخاص بنا واربح على كل عميل تجلبه.
+          </p>
+          <a href="mailto:aoravbeta@gmail.com?subject=طلب%20انضمام%20لبرنامج%20التسويق%20بالعمولة"
+             class="inline-flex items-center gap-2 bg-brand-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand-700 transition">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m22 7-10 5L2 7"></path>
+            </svg>
+            تواصل عبر الإيميل
+          </a>
+        </div>
+
+      </div>
+
+      <div class="border-t border-brand-100 mt-8 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-brand-500">
+        <span>© AORAV — ينبع، المملكة العربية السعودية</span>
+        <span>منتجات مخصصة بتقنية NFC</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 📦 منطق الموقع — ملفات منفصلة                         -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--   refs.js  → سجل المسوّقين (?ref=X → كود في الواتساب)  -->
+  <!--   logic.js → كل منطق الموقع + نظام الترجمة              -->
+  <!--   الترتيب مهم: refs.js أولاً ثم logic.js                 -->
+  <script src="refs.js" defer></script>
+  <script src="logic.js" defer></script>
+</body>
+</html>
