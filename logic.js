@@ -193,7 +193,7 @@
         category: 'إكسسوارات شخصية',
         price: 175,   // السعر بعد أول 10 قطع (يستخدم للحساب فقط)
         images: ['images/cm1.jpeg','images/cm2.jpeg','images/cm3.jpeg','images/cm4.jpeg','images/mf.webp'],
-        video: ['vl019oJbNe1G8DCE'],
+        video: 'kfZatwPHClA',
         salesCount: 0,
         nfcSlots: { layout: 'duo' },  // شريحتان جنب بعض
         shortDesc: 'منصة ميني بحجم للجيب وميدالية شخصية فيها شريحة لروابطك الشخصية',
