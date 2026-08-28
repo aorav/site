@@ -29,6 +29,7 @@ const AFFILIATES = {
   tiktok:    'TT-01',
   mohanned_alamry: 'MohAm',
   rahaf: 'rah-b',
+  ammar: 'Ammar',
 
   // ─── أضف مسوّقين جدداً هنا ───
   // omar:    'OMAR-01',
