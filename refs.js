@@ -28,7 +28,7 @@ const AFFILIATES = {
   sara:      'SARA-YNB',
   tiktok:    'TT-01',
   mohanned_alamry: 'MohAm',
-  rahaf_albrek: 'rahb',
+  rahaf_albrek: 'rah-b',
 
   // ─── أضف مسوّقين جدداً هنا ───
   // omar:    'OMAR-01',
