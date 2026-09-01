@@ -30,6 +30,7 @@ const AFFILIATES = {
   mohanned_alamry: 'MohAm',
   rahaf: 'rah-b',
   ammar: 'Ammar',
+  zahrah: 'Zahrah',
 
   // ─── أضف مسوّقين جدداً هنا ───
   // omar:    'OMAR-01',
