@@ -252,47 +252,129 @@
       // ─────────────────────────────────────────────────
       {
         id: 'p7',
-        name: 'ميداليات AORAV المخصصة',
-        tagline: 'حوّل هوية براندك إلى قطعة يحملها عميلك معه.',
+        name: 'ميداليات AORAV الشتوية',
+        tagline: 'ميداليات موسمية بلمسة شتوية دافئة، مصمّمة بهوية براندك.',
         category: 'ميداليات',
         images: ['images/medal1.jpg', 'images/medal2.jpg', 'images/medal3.jpg'],
-        shortDesc: 'نصمم ونصنع ميداليات مخصصة بهوية براندك، للهدايا والافتتاحات والمناسبات والحملات. اختر النسخة العادية، أضف NFC للتفاعل الرقمي، أو اطلب تصميماً خاصاً بالكامل.',
-        description: '<strong>ميدالية تمثّل براندك — قطعة يحملها عميلك معه.</strong><br><br>مناسبة للهدايا، الافتتاحات، المناسبات والحملات. نصمم الميدالية بالشعار والهوية بشكل مخصص لتكون قطعة فعلية تمثل البراند، وليست مجرد شعار مطبوع.',
+        shortDesc: 'ميداليات حملة الشتاء من AORAV — نصمّمها بهوية براندك بثلاثة أساليب: شعار، أو نقش، أو نقش مع شعار. أسعار جملة تبدأ من 200 قطعة، والشعار مضمّن بدون رسوم إضافية.',
+        description: '<strong>ميداليات حملة الشتاء — قطعة موسمية تحمل هوية براندك.</strong><br><br>مجموعة شتوية بلمسة دافئة مستوحاة من أجواء الموسم، مثالية للهدايا والحملات الترويجية والمناسبات. اختر الأسلوب المناسب لبراندك — الشعار وحده، النقوش الشتوية، أو النقوش مع الشعار — والأسعار أسعار جملة تشمل الميداليات بالشعار.',
         specs: [
-          'تصميم واحد معتمد بهوية براندك',
+          'تصميم معتمد بهوية براندك',
           'تصنيع الميداليات + حلقات التعليق',
-          'خيار إضافة شريحة NFC للتفاعل الرقمي',
+          'الشعار مضمّن بدون رسوم إضافية',
+          'خيار إضافة النقوش الشتوية (+299 ريال للدفعة)',
+          'الحد الأدنى للطلب: 200 قطعة',
         ],
         variants: [
           {
-            id: 'plain',
-            name: 'بدون شريحة',
-            details: '<strong>يشمل:</strong> تصميم معتمد + تصنيع الميداليات + حلقات التعليق.',
+            id: 'logo',
+            name: 'شعار',
+            details: '<strong>يشمل:</strong> تصميم معتمد + تصنيع الميداليات + حلقات التعليق + شعارك على الميدالية بدون رسوم إضافية.<br><br>أسعار جملة تشمل الميداليات بالشعار.',
             packages: [
-              { qty: 25,  price: 179 },
-              { qty: 50,  price: 299 },
-              { qty: 100, price: 499 },
-              { qty: 200, price: 799 },
-              { qty: 500, price: 1490, label: '+500' },
+              { qty: 200,  price: 500 },
+              { qty: 300,  price: 735 },
+              { qty: 500,  price: 1175 },
+              { qty: 750,  price: 1725 },
+              { qty: 1000, price: 2250 },
+              { qty: 1500, price: 3300, label: '+1500' },
             ],
           },
           {
-            id: 'nfc',
-            name: 'NFC ذكية',
-            details: 'شريحة NFC مدمجة داخل كل قطعة — يقرّب العميل جواله من الميدالية فينفتح الرابط الذي تختاره (موقع، Instagram، منيو، خرائط، أو أي رابط آخر).<br><br><strong>يشمل:</strong> تصميم معتمد + شريحة NFC لكل ميدالية + برمجة رابط واحد للدفعة + التصنيع.',
+            id: 'pattern',
+            name: 'نقش',
+            details: 'نقوش شتوية بارزة على الميدالية تمنحها طابع الموسم.<br><br><strong>يشمل:</strong> تصميم معتمد + تصنيع الميداليات + حلقات التعليق + النقوش الشتوية.<br><br><em>إضافة النقوش: +299 ريال للدفعة.</em>',
             packages: [
-              { qty: 25,  price: 199 },
-              { qty: 50,  price: 349 },
-              { qty: 100, price: 599 },
-              { qty: 200, price: 999 },
-              { qty: 500, price: 1990, label: '+500' },
+              { qty: 200,  price: 799 },
+              { qty: 300,  price: 1034 },
+              { qty: 500,  price: 1474 },
+              { qty: 750,  price: 2024 },
+              { qty: 1000, price: 2549 },
+              { qty: 1500, price: 3599, label: '+1500' },
+            ],
+          },
+          {
+            id: 'pattern_logo',
+            name: 'نقش + شعار',
+            details: 'النقوش الشتوية مع شعار براندك على الميدالية — أكمل تفاصيل الموسم.<br><br><strong>يشمل:</strong> تصميم معتمد + تصنيع الميداليات + حلقات التعليق + الشعار + النقوش الشتوية.<br><br><em>إضافة النقوش: +299 ريال للدفعة (الشعار مجاناً).</em>',
+            packages: [
+              { qty: 200,  price: 799 },
+              { qty: 300,  price: 1034 },
+              { qty: 500,  price: 1474 },
+              { qty: 750,  price: 2024 },
+              { qty: 1000, price: 2549 },
+              { qty: 1500, price: 3599, label: '+1500' },
             ],
           },
           {
             id: 'custom',
             name: 'تصميم خاص',
             hidePrice: true,
-            details: 'ميدالية بفكرة خاصة ببراندك — نصمم شكلاً مخصصاً من الصفر بدل الشكل التقليدي. مناسبة للتصاميم المجسمة، الأشكال ثلاثية الأبعاد، الحملات الخاصة واليوم الوطني والطلبات التي تحتاج تنفيذاً مختلفاً.<br><br><em>مثال:</em> ميدالية على شكل دلة 3D، كوب، منتج البراند، رمز خاص، أو تصميم هندسي بالكامل.<br><br><strong>السعر:</strong> يُحدد بعد مراجعة الفكرة، التعقيد والكمية.',
+            details: 'ميدالية شتوية بفكرة خاصة ببراندك — نصمم شكلاً مخصصاً من الصفر بدل الشكل التقليدي.<br><br><em>مثال:</em> ميدالية على شكل كوب شتوي، ندفة ثلج، أو شكل مجسّم يمثّل براندك.<br><br><strong>السعر:</strong> يُحدد بعد مراجعة الفكرة، التعقيد والكمية.',
+          },
+        ],
+      },
+      // ─────────────────────────────────────────────────
+      // المنتج: mwinter — ميداليات الأكواب الشتوية (نفس آلية اختيار السعر/النوع كـ p7)
+      // ─────────────────────────────────────────────────
+      {
+        id: 'p8',
+        name: 'ميداليات الأكواب الشتوية',
+        tagline: 'ميدالية كوب شتوي ثلاثية الأبعاد بهوية براندك.',
+        category: 'ميداليات',
+        images: ['images/mwinter.jpeg'],
+        imageFit: 'contain', // الصورة بوستر طولي — نعرضها كاملة بدون قص
+        shortDesc: 'ميدالية ثلاثية الأبعاد بتصميم كوب شتوي — بشعار البراند وحده أو مع نقوش شتوية. أسعار جملة تبدأ من 200 قطعة.',
+        description: 'ميدالية ثلاثية الأبعاد بتصميم كوب شتوي، مناسبة للهدايا والتوزيعات والحملات الموسمية. يمكن تنفيذها بشعار البراند فقط، أو إضافة نقوش شتوية حسب الخيار المختار.',
+        specs: [
+          'تصميم كوب ثلاثي الأبعاد',
+          'إضافة شعار البراند',
+          'حلقة تعليق',
+          'تصنيع ثلاثي الأبعاد',
+          'خيارات نقوش شتوية',
+          'الحد الأدنى: 200 قطعة',
+        ],
+        variants: [
+          {
+            id: 'logo',
+            name: 'شعار',
+            details: '<strong>شعار البراند بدون رسوم إضافية.</strong><br><br>يشمل: تصميم كوب ثلاثي الأبعاد + شعار البراند + حلقة تعليق + تصنيع ثلاثي الأبعاد.',
+            packages: [
+              { qty: 200,  price: 500 },
+              { qty: 300,  price: 735 },
+              { qty: 500,  price: 1175 },
+              { qty: 750,  price: 1725 },
+              { qty: 1000, price: 2250 },
+              { qty: 1500, price: 3300 },
+              { qty: 3000, price: 6600 },
+            ],
+          },
+          {
+            id: 'pattern',
+            name: 'نقش',
+            details: 'نقوش شتوية بارزة على الكوب.<br><br>يشمل: تصميم كوب ثلاثي الأبعاد + النقوش الشتوية + حلقة تعليق + تصنيع ثلاثي الأبعاد.<br><br><em>إضافة النقش: +299 ريال للدفعة.</em>',
+            packages: [
+              { qty: 200,  price: 799 },
+              { qty: 300,  price: 1034 },
+              { qty: 500,  price: 1474 },
+              { qty: 750,  price: 2024 },
+              { qty: 1000, price: 2549 },
+              { qty: 1500, price: 3599 },
+              { qty: 3000, price: 6899 },
+            ],
+          },
+          {
+            id: 'pattern_logo',
+            name: 'نقش + شعار',
+            details: 'النقوش الشتوية مع شعار البراند على الكوب.<br><br>يشمل: تصميم كوب ثلاثي الأبعاد + الشعار + النقوش الشتوية + حلقة تعليق + تصنيع ثلاثي الأبعاد.<br><br><em>إضافة النقش: +299 ريال للدفعة (الشعار مجاناً).</em>',
+            packages: [
+              { qty: 200,  price: 799 },
+              { qty: 300,  price: 1034 },
+              { qty: 500,  price: 1474 },
+              { qty: 750,  price: 2024 },
+              { qty: 1000, price: 2549 },
+              { qty: 1500, price: 3599 },
+              { qty: 3000, price: 6899 },
+            ],
           },
         ],
       },
@@ -799,8 +881,9 @@
       if (!product.images || product.images.length === 0) {
         return `<div class="aspect-[4/3]">${placeholderHTML()}</div>`;
       }
+      const fitClass = product.imageFit === 'contain' ? 'object-contain' : 'object-cover';
       return `<div class="aspect-[4/3] bg-brand-50">
-        <img src="${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover" loading="lazy" />
+        <img src="${product.images[0]}" alt="${product.name}" class="w-full h-full ${fitClass}" loading="lazy" />
       </div>`;
     }
 
@@ -1481,7 +1564,8 @@
               allowfullscreen></iframe>
           </div>`;
       } else {
-        mainArea.innerHTML = `<img src="${imgs[currentImgIndex]}" alt="${currentProduct.name}" class="w-full h-full object-cover" />`;
+        const mainFitClass = currentProduct.imageFit === 'contain' ? 'object-contain' : 'object-cover';
+        mainArea.innerHTML = `<img src="${imgs[currentImgIndex]}" alt="${currentProduct.name}" class="w-full h-full ${mainFitClass}" />`;
       }
 
       // بناء المصغّرات: صور + مصغرة فيديو (إن وُجد)
@@ -2346,20 +2430,43 @@
         },
       },
       p7: {
-        name: 'AORAV Custom Medals',
+        name: 'AORAV Winter Medals',
         category: 'Medals',
-        tagline: 'Turn your brand identity into a piece your customer carries with them.',
-        shortDesc: 'We design and manufacture custom medals branded with your identity — for gifts, openings, events, and campaigns. Choose the standard version, add NFC for digital interaction, or request a fully custom design.',
-        description: '<strong>A medal that represents your brand — a piece your customer carries with them.</strong><br><br>Perfect for gifts, openings, events and campaigns. We design the medal with your logo and identity as a bespoke piece that truly represents the brand — not just a printed logo.',
+        tagline: 'Seasonal medals with a warm winter touch, designed with your brand identity.',
+        shortDesc: 'AORAV winter-campaign medals — designed with your brand identity in three styles: logo, pattern, or pattern with logo. Wholesale pricing from 200 pieces, with your logo included at no extra charge.',
+        description: '<strong>Winter-campaign medals — a seasonal piece carrying your brand identity.</strong><br><br>A winter collection with a warm touch inspired by the season, perfect for gifts, promotional campaigns and events. Choose the style that fits your brand — logo only, winter patterns, or patterns with your logo — with wholesale pricing that includes the medals with your logo.',
         specs: [
-          'One approved design with your brand identity',
+          'Approved design with your brand identity',
           'Medals manufacturing + hanging loops',
-          'Option to add NFC chip for digital interaction',
+          'Logo included at no extra charge',
+          'Option to add winter patterns (+299 SAR per batch)',
+          'Minimum order: 200 pieces',
         ],
         variants: {
-          plain:  { name: 'Without chip',  details: '<strong>Includes:</strong> approved design + medals manufacturing + hanging loops.' },
-          nfc:    { name: 'Smart NFC',     details: 'An NFC chip embedded inside each piece — the customer taps their phone on the medal to open the link you choose (website, Instagram, menu, Maps, or any other link).<br><br><strong>Includes:</strong> approved design + NFC chip per medal + programming one link for the batch + manufacturing.' },
-          custom: { name: 'Custom design', details: 'A medal with an idea unique to your brand — we design a custom shape from scratch instead of the traditional form. Suitable for 3D shapes, sculptural designs, special campaigns and National Day, and orders that need a different execution.<br><br><em>Example:</em> a medal shaped like a dallah (3D), a cup, your brand product, a special icon, or a fully geometric design.<br><br><strong>Price:</strong> quoted after review of the idea, complexity and quantity.' },
+          logo:         { name: 'Logo',           details: '<strong>Includes:</strong> approved design + medals manufacturing + hanging loops + your logo on the medal at no extra charge.<br><br>Wholesale pricing includes the medals with your logo.' },
+          pattern:      { name: 'Pattern',        details: 'Embossed winter patterns on the medal that give it the seasonal character.<br><br><strong>Includes:</strong> approved design + medals manufacturing + hanging loops + winter patterns.<br><br><em>Adding patterns: +299 SAR per batch.</em>' },
+          pattern_logo: { name: 'Pattern + Logo', details: 'Winter patterns with your brand logo on the medal — the complete seasonal detail.<br><br><strong>Includes:</strong> approved design + medals manufacturing + hanging loops + logo + winter patterns.<br><br><em>Adding patterns: +299 SAR per batch (logo is free).</em>' },
+          custom:       { name: 'Custom design',  details: 'A winter medal with an idea unique to your brand — we design a custom shape from scratch instead of the traditional form.<br><br><em>Example:</em> a medal shaped like a winter cup, a snowflake, or a sculptural form representing your brand.<br><br><strong>Price:</strong> quoted after review of the idea, complexity and quantity.' },
+        },
+      },
+      p8: {
+        name: 'Winter Cup Medals',
+        category: 'Medals',
+        tagline: 'A 3D winter-cup medal with your brand identity.',
+        shortDesc: 'A 3D medal shaped like a winter cup — with your brand logo alone or with winter patterns. Wholesale pricing from 200 pieces.',
+        description: 'A 3D medal designed as a winter cup, perfect for gifts, giveaways and seasonal campaigns. It can be produced with the brand logo only, or with added winter patterns depending on the chosen option.',
+        specs: [
+          '3D cup design',
+          'Brand logo added',
+          'Hanging loop',
+          '3D manufacturing',
+          'Winter pattern options',
+          'Minimum: 200 pieces',
+        ],
+        variants: {
+          logo:         { name: 'Logo',           details: '<strong>Brand logo at no extra charge.</strong><br><br>Includes: 3D cup design + brand logo + hanging loop + 3D manufacturing.' },
+          pattern:      { name: 'Pattern',        details: 'Embossed winter patterns on the cup.<br><br>Includes: 3D cup design + winter patterns + hanging loop + 3D manufacturing.<br><br><em>Adding pattern: +299 SAR per batch.</em>' },
+          pattern_logo: { name: 'Pattern + Logo', details: 'Winter patterns with the brand logo on the cup.<br><br>Includes: 3D cup design + logo + winter patterns + hanging loop + 3D manufacturing.<br><br><em>Adding pattern: +299 SAR per batch (logo is free).</em>' },
         },
       },
     };
