@@ -252,24 +252,23 @@
       // ─────────────────────────────────────────────────
       {
         id: 'p7',
-        name: 'ميداليات AORAV الشتوية',
-        tagline: 'ميداليات موسمية بلمسة شتوية دافئة، مصمّمة بهوية براندك.',
+        name: 'ميداليات AORAV المخصصة',
+        tagline: 'حوّل هوية براندك إلى قطعة يحملها عميلك معه.',
         category: 'ميداليات',
         images: ['images/medal1.jpg', 'images/medal2.jpg', 'images/medal3.jpg'],
-        shortDesc: 'ميداليات حملة الشتاء من AORAV — نصمّمها بهوية براندك بثلاثة أساليب: شعار، أو نقش، أو نقش مع شعار. أسعار جملة تبدأ من 200 قطعة، والشعار مضمّن بدون رسوم إضافية.',
-        description: '<strong>ميداليات حملة الشتاء — قطعة موسمية تحمل هوية براندك.</strong><br><br>مجموعة شتوية بلمسة دافئة مستوحاة من أجواء الموسم، مثالية للهدايا والحملات الترويجية والمناسبات. اختر الأسلوب المناسب لبراندك — الشعار وحده، النقوش الشتوية، أو النقوش مع الشعار — والأسعار أسعار جملة تشمل الميداليات بالشعار.',
+        shortDesc: 'نصمم ونصنع ميداليات مخصصة بهوية براندك وشعارك، للهدايا والافتتاحات والمناسبات والحملات. أسعار جملة تبدأ من 200 قطعة، والشعار مضمّن بدون رسوم إضافية.',
+        description: '<strong>ميدالية تمثّل براندك — قطعة يحملها عميلك معه.</strong><br><br>مناسبة للهدايا، الافتتاحات، المناسبات والحملات. نصمم الميدالية بالشعار والهوية بشكل مخصص لتكون قطعة فعلية تمثل البراند، وليست مجرد شعار مطبوع. الأسعار أسعار جملة تشمل الميداليات بالشعار.',
         specs: [
           'تصميم معتمد بهوية براندك',
           'تصنيع الميداليات + حلقات التعليق',
           'الشعار مضمّن بدون رسوم إضافية',
-          'خيار إضافة النقوش الشتوية (+299 ريال للدفعة)',
           'الحد الأدنى للطلب: 200 قطعة',
         ],
         variants: [
           {
             id: 'logo',
-            name: 'شعار',
-            details: '<strong>يشمل:</strong> تصميم معتمد + تصنيع الميداليات + حلقات التعليق + شعارك على الميدالية بدون رسوم إضافية.<br><br>أسعار جملة تشمل الميداليات بالشعار.',
+            name: 'ميدالية',
+            details: '<strong>يشمل:</strong> تصميم معتمد بهوية براندك + تصنيع الميداليات + حلقات التعليق + شعارك على الميدالية بدون رسوم إضافية.<br><br>أسعار جملة تشمل الميداليات بالشعار.',
             packages: [
               { qty: 200,  price: 500 },
               { qty: 300,  price: 735 },
@@ -278,38 +277,6 @@
               { qty: 1000, price: 2250 },
               { qty: 1500, price: 3300, label: '+1500' },
             ],
-          },
-          {
-            id: 'pattern',
-            name: 'نقش',
-            details: 'نقوش شتوية بارزة على الميدالية تمنحها طابع الموسم.<br><br><strong>يشمل:</strong> تصميم معتمد + تصنيع الميداليات + حلقات التعليق + النقوش الشتوية.<br><br><em>إضافة النقوش: +299 ريال للدفعة.</em>',
-            packages: [
-              { qty: 200,  price: 799 },
-              { qty: 300,  price: 1034 },
-              { qty: 500,  price: 1474 },
-              { qty: 750,  price: 2024 },
-              { qty: 1000, price: 2549 },
-              { qty: 1500, price: 3599, label: '+1500' },
-            ],
-          },
-          {
-            id: 'pattern_logo',
-            name: 'نقش + شعار',
-            details: 'النقوش الشتوية مع شعار براندك على الميدالية — أكمل تفاصيل الموسم.<br><br><strong>يشمل:</strong> تصميم معتمد + تصنيع الميداليات + حلقات التعليق + الشعار + النقوش الشتوية.<br><br><em>إضافة النقوش: +299 ريال للدفعة (الشعار مجاناً).</em>',
-            packages: [
-              { qty: 200,  price: 799 },
-              { qty: 300,  price: 1034 },
-              { qty: 500,  price: 1474 },
-              { qty: 750,  price: 2024 },
-              { qty: 1000, price: 2549 },
-              { qty: 1500, price: 3599, label: '+1500' },
-            ],
-          },
-          {
-            id: 'custom',
-            name: 'تصميم خاص',
-            hidePrice: true,
-            details: 'ميدالية شتوية بفكرة خاصة ببراندك — نصمم شكلاً مخصصاً من الصفر بدل الشكل التقليدي.<br><br><em>مثال:</em> ميدالية على شكل كوب شتوي، ندفة ثلج، أو شكل مجسّم يمثّل براندك.<br><br><strong>السعر:</strong> يُحدد بعد مراجعة الفكرة، التعقيد والكمية.',
           },
         ],
       },
@@ -1387,13 +1354,17 @@
           </div>`;
       }
 
-      el.classList.remove('hidden');
-      el.innerHTML = `
-        <div class="border-t border-brand-100 pt-4 space-y-3">
+      // شريط اختيار النسخة يظهر فقط لو فيه أكثر من خيار (منتج بخيار واحد = ميدالية بسيطة)
+      const variantTabsBlock = variants.length > 1 ? `
           <div>
             <p class="text-xs font-semibold text-brand-500 mb-2">اختر النسخة</p>
             <div class="flex gap-1.5 sm:gap-2">${variantTabs}</div>
-          </div>
+          </div>` : '';
+
+      el.classList.remove('hidden');
+      el.innerHTML = `
+        <div class="border-t border-brand-100 pt-4 space-y-3">
+          ${variantTabsBlock}
           ${detailsHtml}
           ${packagesHtml}
         </div>
@@ -2430,23 +2401,19 @@
         },
       },
       p7: {
-        name: 'AORAV Winter Medals',
+        name: 'AORAV Custom Medals',
         category: 'Medals',
-        tagline: 'Seasonal medals with a warm winter touch, designed with your brand identity.',
-        shortDesc: 'AORAV winter-campaign medals — designed with your brand identity in three styles: logo, pattern, or pattern with logo. Wholesale pricing from 200 pieces, with your logo included at no extra charge.',
-        description: '<strong>Winter-campaign medals — a seasonal piece carrying your brand identity.</strong><br><br>A winter collection with a warm touch inspired by the season, perfect for gifts, promotional campaigns and events. Choose the style that fits your brand — logo only, winter patterns, or patterns with your logo — with wholesale pricing that includes the medals with your logo.',
+        tagline: 'Turn your brand identity into a piece your customer carries with them.',
+        shortDesc: 'We design and manufacture custom medals branded with your identity and logo — for gifts, openings, events and campaigns. Wholesale pricing from 200 pieces, with your logo included at no extra charge.',
+        description: '<strong>A medal that represents your brand — a piece your customer carries with them.</strong><br><br>Perfect for gifts, openings, events and campaigns. We design the medal with your logo and identity as a bespoke piece that truly represents the brand — not just a printed logo. Wholesale pricing includes the medals with your logo.',
         specs: [
           'Approved design with your brand identity',
           'Medals manufacturing + hanging loops',
           'Logo included at no extra charge',
-          'Option to add winter patterns (+299 SAR per batch)',
           'Minimum order: 200 pieces',
         ],
         variants: {
-          logo:         { name: 'Logo',           details: '<strong>Includes:</strong> approved design + medals manufacturing + hanging loops + your logo on the medal at no extra charge.<br><br>Wholesale pricing includes the medals with your logo.' },
-          pattern:      { name: 'Pattern',        details: 'Embossed winter patterns on the medal that give it the seasonal character.<br><br><strong>Includes:</strong> approved design + medals manufacturing + hanging loops + winter patterns.<br><br><em>Adding patterns: +299 SAR per batch.</em>' },
-          pattern_logo: { name: 'Pattern + Logo', details: 'Winter patterns with your brand logo on the medal — the complete seasonal detail.<br><br><strong>Includes:</strong> approved design + medals manufacturing + hanging loops + logo + winter patterns.<br><br><em>Adding patterns: +299 SAR per batch (logo is free).</em>' },
-          custom:       { name: 'Custom design',  details: 'A winter medal with an idea unique to your brand — we design a custom shape from scratch instead of the traditional form.<br><br><em>Example:</em> a medal shaped like a winter cup, a snowflake, or a sculptural form representing your brand.<br><br><strong>Price:</strong> quoted after review of the idea, complexity and quantity.' },
+          logo: { name: 'Medal', details: '<strong>Includes:</strong> approved design with your brand identity + medals manufacturing + hanging loops + your logo on the medal at no extra charge.<br><br>Wholesale pricing includes the medals with your logo.' },
         },
       },
       p8: {
