@@ -34,6 +34,7 @@ const AFFILIATES = {
   Kholood_eid: 'Kholood',
   Qassim: 'qassim',
   EmadLabib: 'Emad Labib',
+  MohammedAlruwaili: 'Mohammed Alruwaili',
 
   // ─── أضف مسوّقين جدداً هنا ───
   // omar:    'OMAR-01',
