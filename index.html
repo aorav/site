@@ -135,44 +135,50 @@
     }
 
     /* ═══════════════════════════════════════════════════ */
-    /* بانر اليوم الوطني 96 — الألوان الرسمية للهوية        */
+    /* بانر حملة الشتاء — أزرق ليلي بارد + لمسات فضية/ثلجية  */
     /* ═══════════════════════════════════════════════════ */
-    /*   خلفية خضراء داكنة + لمسات ذهبية، بنمط ساديو خفيف   */
-    .nd-hero {
+    /*   خلفية زرقاء داكنة باردة + توهّج فضي خفيف            */
+    .win-hero {
       background:
-        radial-gradient(ellipse at top right, rgba(201, 168, 106, 0.12), transparent 60%),
-        radial-gradient(ellipse at bottom left, rgba(90, 186, 28, 0.10), transparent 55%),
-        linear-gradient(135deg, #0a3d2a 0%, #10513a 55%, #0a3d2a 100%);
+        radial-gradient(ellipse at top right, rgba(186, 214, 235, 0.14), transparent 60%),
+        radial-gradient(ellipse at bottom left, rgba(120, 170, 210, 0.12), transparent 55%),
+        linear-gradient(135deg, #0e2438 0%, #16324c 55%, #0e2438 100%);
     }
-    .nd-badge {
-      background: linear-gradient(100deg, #c9a86a 0%, #e6cb8e 50%, #c9a86a 100%);
+    .win-badge {
+      background: linear-gradient(100deg, #bcd6eb 0%, #e8f3fb 50%, #bcd6eb 100%);
       background-size: 200% 100%;
       animation: badge-shimmer 6s linear infinite;
-      color: #0a3d2a;
-      box-shadow: 0 2px 10px rgba(201, 168, 106, 0.35);
+      color: #0e2438;
+      box-shadow: 0 2px 10px rgba(188, 214, 235, 0.35);
     }
-    .nd-title {
-      background: linear-gradient(90deg, #fff 0%, #e6cb8e 100%);
+    .win-title {
+      background: linear-gradient(90deg, #fff 0%, #bcd6eb 100%);
       -webkit-background-clip: text;
               background-clip: text;
       -webkit-text-fill-color: transparent;
               color: transparent;
     }
-    .nd-cta {
-      background: linear-gradient(135deg, #c9a86a 0%, #b18f52 100%);
-      color: #0a3d2a;
-      box-shadow: 0 4px 14px rgba(201, 168, 106, 0.35);
+    .win-cta {
+      background: linear-gradient(135deg, #bcd6eb 0%, #8fb4d2 100%);
+      color: #0e2438;
+      box-shadow: 0 4px 14px rgba(188, 214, 235, 0.35);
       transition: transform .2s ease, box-shadow .2s ease;
     }
-    .nd-cta:hover {
+    .win-cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(201, 168, 106, 0.5);
+      box-shadow: 0 6px 20px rgba(188, 214, 235, 0.55);
     }
-    /* لمسة خفيفة على الحدود الذهبية للبطاقات الداخلية */
-    .nd-chip {
-      background: rgba(201, 168, 106, 0.10);
-      border: 1px solid rgba(201, 168, 106, 0.30);
-      color: #f4e4c1;
+    /* لمسة خفيفة على الحدود الثلجية للبطاقات الداخلية */
+    .win-chip {
+      background: rgba(188, 214, 235, 0.10);
+      border: 1px solid rgba(188, 214, 235, 0.30);
+      color: #e8f3fb;
+    }
+    /* شارة "بدون دفع" داخل البانر — خضراء هادئة تطمئن العميل */
+    .win-nopay {
+      background: rgba(74, 222, 128, 0.12);
+      border: 1px solid rgba(74, 222, 128, 0.35);
+      color: #d7f7e2;
     }
 
     /* نبضة النقاط على الخريطة (تُركت للاستخدام المستقبلي — لا يوجد خريطة حالياً) */
@@ -278,106 +284,111 @@
         </button>
       </div>
     </div>
+    <!-- شريط علوي رفيع يطمئن العميل: الطلب بدون دفع نهائياً -->
+    <div id="noPayBar" class="bg-green-600 text-white text-center text-xs sm:text-sm py-2 px-4 flex items-center justify-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
+      </svg>
+      <span id="noPayBarText" class="font-semibold">اطلب الآن بدون أي دفع — تجهّز سلتك وترسل طلبك عبر واتساب مباشرة، والدفع يُتفق عليه لاحقاً</span>
+    </div>
   </header>
 
   <!-- ═══════════════════════════════════════════════════ -->
   <!-- 🖼️ [9] العرض الترويجي (Hero) — عدّل النصوص هنا       -->
   <!-- ═══════════════════════════════════════════════════ -->
-  <!--   بانر اليوم الوطني 96 — عزّنا بطبعنا                -->
-  <!--   يستخدم الألوان الرسمية لهوية اليوم الوطني 2026     -->
-  <!--   والنقش المستوحى من نسيج السدو التقليدي              -->
+  <!--   بانر حملة الشتاء — جهّز فعاليات الشتاء              -->
+  <!--   يستخدم ألوان زرقاء باردة ولمسات ثلجية/فضية          -->
+  <!--   والنقش المستوحى من بلّورات الثلج                     -->
   <!--   خفيف تماماً: SVG مضمّن، لا صور خارجية               -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 pt-8">
-    <div class="nd-hero relative overflow-hidden rounded-2xl text-white p-8 sm:p-12">
+    <div class="win-hero relative overflow-hidden rounded-2xl text-white p-8 sm:p-12">
 
-      <!-- نقش السدو المزخرف في الخلفية (SVG مضمّن — خفيف جداً) -->
-      <svg class="absolute inset-0 w-full h-full opacity-[0.08] pointer-events-none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- نقش بلّورات الثلج في الخلفية (SVG مضمّن — خفيف جداً) -->
+      <svg class="absolute inset-0 w-full h-full opacity-[0.10] pointer-events-none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
-          <pattern id="sadu" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
-            <!-- معينات ومثلثات مستوحاة من نسيج السدو -->
-            <path d="M40 8 L52 20 L40 32 L28 20 Z" fill="none" stroke="#c9a86a" stroke-width="1.2"/>
-            <path d="M40 48 L52 60 L40 72 L28 60 Z" fill="none" stroke="#c9a86a" stroke-width="1.2"/>
-            <path d="M8 40 L20 28 L20 52 Z" fill="#c9a86a" opacity="0.55"/>
-            <path d="M72 40 L60 28 L60 52 Z" fill="#c9a86a" opacity="0.55"/>
-            <circle cx="40" cy="40" r="2" fill="#c9a86a"/>
+          <pattern id="snow" x="0" y="0" width="90" height="90" patternUnits="userSpaceOnUse">
+            <!-- بلّورة ثلج سداسية بسيطة -->
+            <g stroke="#bcd6eb" stroke-width="1.1" fill="none" stroke-linecap="round">
+              <line x1="45" y1="22" x2="45" y2="68"/>
+              <line x1="25" y1="33.5" x2="65" y2="56.5"/>
+              <line x1="65" y1="33.5" x2="25" y2="56.5"/>
+              <path d="M45 22 l-5 7 M45 22 l5 7 M45 68 l-5 -7 M45 68 l5 -7"/>
+              <path d="M25 33.5 l1 8.5 M25 33.5 l8 -2 M65 56.5 l-1 -8.5 M65 56.5 l-8 2"/>
+              <path d="M65 33.5 l-1 8.5 M65 33.5 l-8 -2 M25 56.5 l1 -8.5 M25 56.5 l8 2"/>
+            </g>
+            <circle cx="45" cy="45" r="1.6" fill="#bcd6eb"/>
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#sadu)"/>
+        <rect width="100%" height="100%" fill="url(#snow)"/>
       </svg>
 
-      <!-- ورقة نخيل زخرفية في الزاوية العلوية (تظهر على الشاشات الأكبر فقط) -->
+      <!-- بلّورة ثلج زخرفية كبيرة في الزاوية العلوية (تظهر على الشاشات الأكبر فقط) -->
       <svg class="hidden md:block absolute -top-6 -left-6 w-40 h-40 opacity-25 pointer-events-none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g fill="#c9a86a">
-          <!-- نجمة ثمانية بسيطة تشبه الأيقونة الرئيسية للرؤية -->
-          <path d="M50 8 L58 42 L92 50 L58 58 L50 92 L42 58 L8 50 L42 42 Z" opacity="0.6"/>
-          <circle cx="50" cy="50" r="6"/>
+        <g stroke="#bcd6eb" stroke-width="2" fill="none" stroke-linecap="round">
+          <line x1="50" y1="10" x2="50" y2="90"/>
+          <line x1="15" y1="30" x2="85" y2="70"/>
+          <line x1="85" y1="30" x2="15" y2="70"/>
+          <path d="M50 10 l-8 11 M50 10 l8 11 M50 90 l-8 -11 M50 90 l8 -11"/>
+          <path d="M15 30 l2 13 M15 30 l13 -3 M85 70 l-2 -13 M85 70 l-13 3"/>
+          <path d="M85 30 l-2 13 M85 30 l-13 -3 M15 70 l2 -13 M15 70 l13 3"/>
         </g>
       </svg>
 
       <div class="relative z-10 max-w-2xl">
-        <!-- شارة اليوم الوطني -->
+        <!-- شارة حملة الشتاء -->
         <div class="flex items-center gap-2 flex-wrap mb-5">
-          <span class="nd-badge inline-flex items-center gap-1.5 text-xs font-black px-4 py-1.5 rounded-full tracking-wider">
-            <!-- أيقونة نخلة مصغّرة -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="currentColor" aria-hidden="true">
-              <path d="M12 22V13M12 13c-1-3-4-5-8-5 1 4 4 6 8 5zM12 13c1-3 4-5 8-5-1 4-4 6-8 5zM12 13c-1-4 0-8 3-10-1 4-1 8-3 10zM12 13c1-4 0-8-3-10 1 4 1 8 3 10z"/>
+          <span class="win-badge inline-flex items-center gap-1.5 text-xs font-black px-4 py-1.5 rounded-full tracking-wider">
+            <!-- أيقونة بلّورة ثلج مصغّرة -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <line x1="12" y1="2" x2="12" y2="22"/><line x1="4" y1="7" x2="20" y2="17"/><line x1="20" y1="7" x2="4" y2="17"/>
             </svg>
-            اليوم الوطني 96
+            حملة الشتاء
           </span>
-          <span class="nd-chip inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-full tracking-wide">
-            عزّنا بطبعنا
+          <span class="win-chip inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-full tracking-wide">
+            جهّز فعاليات الشتاء
           </span>
         </div>
 
         <!-- العنوان الرئيسي -->
         <h2 class="text-3xl sm:text-4xl md:text-5xl font-black mb-4 leading-tight">
-          <span class="nd-title">تخفيضات اليوم الوطني</span>
+          <span class="win-title">جهّز فعاليات الشتاء مع AORAV</span>
         </h2>
 
-        <!-- الوصف مع تفاصيل الخصم -->
+        <!-- الوصف -->
         <p class="text-white/85 mb-6 leading-relaxed text-base sm:text-lg">
-          احتفاءً بيومنا الوطني الـ 96، خصومات تصل إلى 
-          <span class="font-black text-[#e6cb8e]">171 ريال</span>
-          على منصات AORAV. صناعة سعودية 100% بأيدٍ سعودية في ينبع.
+          مع برودة الموسم، جهّز مقهاك أو مطعمك لفعاليات الشتاء بمنتجات مخصصة بهويتك:
+          ستاندات ذكية، حوامل مناديل، وميداليات أكواب شتوية بتصميم ثلاثي الأبعاد.
+          صناعة سعودية 100% بأيدٍ سعودية في ينبع.
         </p>
 
-        <!-- بطاقات مختصرة تظهر قيمة العرض -->
-        <div class="grid grid-cols-2 gap-2 mb-7 max-w-md">
-          <div class="nd-chip rounded-lg px-3 py-2 text-center">
-            <div class="text-[10px] text-white/70 mb-0.5">اوراف سلم</div>
-            <div class="text-sm font-bold">
-              <span class="line-through opacity-50 text-xs">399</span>
-              <span class="text-[#e6cb8e]"> 249</span>
-              <span class="text-[10px] opacity-70">ر.س</span>
-            </div>
-          </div>
-          <div class="nd-chip rounded-lg px-3 py-2 text-center">
-            <div class="text-[10px] text-white/70 mb-0.5">اوراف برايم</div>
-            <div class="text-sm font-bold">
-              <span class="line-through opacity-50 text-xs">520</span>
-              <span class="text-[#e6cb8e]"> 349</span>
-              <span class="text-[10px] opacity-70">ر.س</span>
-            </div>
-          </div>
+        <!-- شارة طمأنة: بدون دفع -->
+        <div class="win-nopay inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-lg mb-7">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
+          </svg>
+          تصفّح وأضف للسلة وأرسل طلبك بدون أي دفع
         </div>
 
         <!-- زر الإجراء -->
-        <a href="#products" class="nd-cta inline-flex items-center gap-2 px-6 py-3 rounded-lg font-black">
-          تصفّح العروض
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-        </a>
+        <div>
+          <a href="#products" class="win-cta inline-flex items-center gap-2 px-6 py-3 rounded-lg font-black">
+            تصفّح منتجات الشتاء
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+          </a>
+        </div>
       </div>
 
-      <!-- لمسة زخرفية سفلية — علم صغير للاحتفال -->
+      <!-- لمسة زخرفية سفلية — بلّورة ثلج صغيرة -->
       <div class="absolute right-6 bottom-6 opacity-40 hidden sm:block pointer-events-none">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" class="w-24 h-24" aria-hidden="true">
-          <!-- نجمة زخرفية سعودية -->
-          <g fill="none" stroke="#c9a86a" stroke-width="1">
+          <g stroke="#bcd6eb" stroke-width="1.2" fill="none" stroke-linecap="round">
             <circle cx="30" cy="30" r="22"/>
-            <circle cx="30" cy="30" r="14"/>
-            <path d="M30 4 L34 26 L56 30 L34 34 L30 56 L26 34 L4 30 L26 26 Z" fill="#c9a86a" opacity="0.4"/>
+            <line x1="30" y1="10" x2="30" y2="50"/>
+            <line x1="13" y1="20" x2="47" y2="40"/>
+            <line x1="47" y1="20" x2="13" y2="40"/>
+            <path d="M30 10 l-4 5 M30 10 l4 5 M30 50 l-4 -5 M30 50 l4 -5"/>
           </g>
         </svg>
       </div>
@@ -547,8 +558,15 @@
           <span class="text-brand-500">المجموع</span>
           <span id="cartTotalPrice" class="font-bold text-brand-900">0 ر.س</span>
         </div>
+        <!-- طمأنة الدفع: يظهر فوق زر الإرسال داخل السلة -->
+        <div class="flex items-start gap-2 bg-green-50 border border-green-200 rounded-lg px-3 py-2.5 text-xs text-green-800">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
+          </svg>
+          <span id="cartNoPayNote" class="leading-relaxed">لا يوجد دفع في الموقع. بمجرد الإرسال تصلنا تفاصيل طلبك على واتساب، ونكمل معك الاتفاق والدفع هناك.</span>
+        </div>
         <button onclick="openCheckout()" id="checkoutBtn" class="w-full bg-brand-900 text-white py-3 rounded-lg font-semibold hover:bg-brand-700 transition disabled:opacity-40 disabled:cursor-not-allowed" disabled>
-         ارسل الطلب بدون دفع على الواتس اب
+         أرسل الطلب على واتساب — بدون دفع
         </button>
         <button onclick="confirmClearCart()" id="clearCartBtn" class="w-full text-xs text-red-500 hover:text-red-700 hover:underline py-1 hidden">
           بدء طلب جديد (تفريغ السلة)
@@ -573,6 +591,17 @@
       </div>
 
       <div class="p-6">
+        <!-- لافتة واضحة أعلى نموذج الطلب: لا دفع هنا -->
+        <div class="flex items-start gap-3 bg-green-50 border border-green-200 rounded-xl p-4 mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 flex-shrink-0 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/>
+          </svg>
+          <div>
+            <p id="checkoutNoPayTitle" class="text-sm font-bold text-green-900">طلبك بدون أي دفع الآن</p>
+            <p id="checkoutNoPayDesc" class="text-xs text-green-800 leading-relaxed mt-0.5">ما راح نطلب منك أي بطاقة أو تحويل. نفتح لك واتساب برسالة طلب جاهزة، ونكمل الاتفاق والدفع معك مباشرة.</p>
+          </div>
+        </div>
+
         <p class="text-sm text-brand-500 mb-5">
           املأ بياناتك، وسنفتح لك واتساب برسالة طلب جاهزة. أرفق شعارك في المحادثة وأرسل.
         </p>
@@ -624,15 +653,16 @@
             <span class="font-bold">الإجمالي</span>
             <span id="checkoutTotal" class="font-bold text-brand-900">0 ر.س</span>
           </div>
+          <p id="checkoutTotalHint" class="text-[11px] text-brand-500 text-center pt-1">هذا تقدير طلبك — لا يُدفع الآن، بل يُتفق عليه عبر واتساب</p>
         </div>
 
         <button onclick="submitOrder()" class="w-full mt-6 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition flex items-center justify-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
           </svg>
-          إرسال عبر واتساب
+          إرسال عبر واتساب — بدون دفع
         </button>
-        <p class="text-xs text-brand-500 mt-3 text-center">سيفتح واتساب برسالة جاهزة — أرفق شعارك (PDF/صورة) وأرسل</p>
+        <p class="text-xs text-brand-500 mt-3 text-center">سيفتح واتساب برسالة جاهزة — أرفق شعارك (PDF/صورة) وأرسل. لا دفع في الموقع.</p>
       </div>
     </div>
   </div>
@@ -696,13 +726,13 @@
           <p class="text-sm text-brand-500 leading-relaxed mb-3">
             هل أنت مسوق أو صانع محتوى؟ انضم لبرنامج العمولة الخاص بنا واربح على كل عميل تجلبه.
           </p>
-          <a href="mailto:aoravbeta@gmail.com?subject=طلب%20انضمام%20لبرنامج%20التسويق%20بالعمولة"
+          <a href="https://wa.me/966511524229?text=%D8%A3%D9%86%D8%A7%20%D9%82%D8%A7%D8%AF%D9%85%20%D9%85%D9%86%20%D8%A7%D9%84%D9%85%D9%88%D9%82%D8%B9%20%D8%A7%D9%84%D8%B1%D8%B3%D9%85%D9%8A%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A3%D9%86%20%D8%A3%D8%B5%D8%A8%D8%AD%20%D9%85%D8%B3%D9%88%D9%82%20%D8%B9%D9%85%D9%88%D9%84%D8%A9%20%D9%84%D8%AF%D9%8A%D9%83%D9%85"
+             target="_blank"
              class="inline-flex items-center gap-2 bg-brand-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-brand-700 transition">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-              <path d="m22 7-10 5L2 7"></path>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
             </svg>
-            تواصل عبر الإيميل
+            تواصل عبر واتساب
           </a>
         </div>
 
