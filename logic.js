@@ -173,7 +173,6 @@
         name: 'اوراف سلم',
         category: 'ستاندات',
         price: 249,
-        originalPrice: 399,   // السعر الأصلي — يظهر مشطوباً بجانب سعر الخصم
         images: ['images/fs1.webp','images/ss1.webp','images/all.webp'],
         video: 'fQJKK8NQLcA',
         badge: 'الأسهل والأريح',
@@ -227,7 +226,6 @@
         name: 'اوراف برايم',
         category: 'ستاندات',
         price: 349,
-        originalPrice: 520,   // السعر الأصلي — يظهر مشطوباً بجانب سعر الخصم
         images: ['images/fp1.webp','images/fp2.webp','images/fp3.webp','images/sp1.webp'],
         video: 'dIQs_EP1k-w',
         badge: 'اختيارنا للمقاهي والمطاعم',
@@ -2065,6 +2063,7 @@
         } else {
           msg += `*الإجمالي: ${subtotal} ${CURRENCY}*${NL}`;
         }
+        msg += `${NL}_ملاحظة: هذا تقدير الطلب — لا يوجد دفع عبر الموقع، ونتفق على الدفع عبر واتساب._${NL}`;
       }
 
       if (notes) msg += `${NL}الملاحظات: ${notes}${NL}`;
@@ -2223,17 +2222,19 @@
       'ضيفنا الكريم': 'Dear Guest',
       'السلة': 'Cart',
 
-      // Hero — بانر اليوم الوطني 96
-      'اليوم الوطني 96': 'National Day 96',
-      'عزّنا بطبعنا': 'Our Pride in Our Nature',
-      'تخفيضات اليوم الوطني': 'National Day Discounts',
-      'احتفاءً بيومنا الوطني الـ 96، خصومات تصل إلى': 'Celebrating our 96th National Day, discounts up to',
+      // شريط "بدون دفع" العلوي
+      'اطلب الآن بدون أي دفع — تجهّز سلتك وترسل طلبك عبر واتساب مباشرة، والدفع يُتفق عليه لاحقاً':
+        'Order now with no payment — build your cart and send your order straight to WhatsApp; payment is arranged later',
+
+      // Hero — بانر حملة الشتاء
+      'حملة الشتاء': 'Winter Campaign',
+      'جهّز فعاليات الشتاء': 'Get Ready for Winter Events',
+      'جهّز فعاليات الشتاء مع AORAV': 'Get Ready for Winter Events with AORAV',
+      'مع برودة الموسم، جهّز مقهاك أو مطعمك لفعاليات الشتاء بمنتجات مخصصة بهويتك: ستاندات ذكية، حوامل مناديل، وميداليات أكواب شتوية بتصميم ثلاثي الأبعاد. صناعة سعودية 100% بأيدٍ سعودية في ينبع.':
+        'As the season cools, get your café or restaurant ready for winter events with products customized to your brand: smart stands, napkin holders, and 3D winter-cup medals. 100% Saudi-made by Saudi hands in Yanbu.',
+      'تصفّح وأضف للسلة وأرسل طلبك بدون أي دفع': 'Browse, add to cart, and send your order — with no payment',
+      'تصفّح منتجات الشتاء': 'Browse Winter Products',
       'ريال': 'SAR',
-      'على منصات AORAV. صناعة سعودية 100% بأيدٍ سعودية في ينبع.': 'on AORAV stands. 100% Saudi-made by Saudi hands in Yanbu.',
-      'اوراف سلم': 'AORAV Slim',
-      'اوراف برايم': 'AORAV Prime',
-      'شعارك مطبوع 3دي': 'Your 3D-printed logo',
-      'تصفّح العروض': 'Browse Offers',
       'ر.س': 'SAR',
 
       // Clients
@@ -2279,13 +2280,18 @@
       'أضف للسلة': 'Add to Cart',
       'مجموع القطع': 'Total Items',
       'المجموع': 'Total',
-      'ارسل الطلب بدون دفع على الواتس اب': 'Send order via WhatsApp (no payment)',
+      'لا يوجد دفع في الموقع. بمجرد الإرسال تصلنا تفاصيل طلبك على واتساب، ونكمل معك الاتفاق والدفع هناك.':
+        'No payment on the site. Once you send, your order details reach us on WhatsApp, and we complete the agreement and payment there.',
+      'أرسل الطلب على واتساب — بدون دفع': 'Send order on WhatsApp — no payment',
       'بدء طلب جديد (تفريغ السلة)': 'Start a new order (clear cart)',
       'حذف': 'Remove',
       '🎁 مع حامل منصة مجاناً': '🎁 With a free display stand',
 
       // Checkout modal
       'إتمام الطلب': 'Complete Order',
+      'طلبك بدون أي دفع الآن': 'Your order has no payment now',
+      'ما راح نطلب منك أي بطاقة أو تحويل. نفتح لك واتساب برسالة طلب جاهزة، ونكمل الاتفاق والدفع معك مباشرة.':
+        'We won\'t ask for any card or transfer. We open WhatsApp with a prepared order message, and complete the agreement and payment with you directly.',
       'املأ بياناتك، وسنفتح لك واتساب برسالة طلب جاهزة. أرفق شعارك في المحادثة وأرسل.':
         'Fill in your details, and we\'ll open WhatsApp with a prepared order message. Attach your logo in the chat and send.',
       'الاسم': 'Name',
@@ -2301,9 +2307,10 @@
       'المجموع الفرعي': 'Subtotal',
       'الخصم': 'Discount',
       'الإجمالي': 'Total',
-      'إرسال عبر واتساب': 'Send via WhatsApp',
-      'سيفتح واتساب برسالة جاهزة — أرفق شعارك (PDF/صورة) وأرسل':
-        'WhatsApp will open with a prepared message — attach your logo (PDF/image) and send',
+      'هذا تقدير طلبك — لا يُدفع الآن، بل يُتفق عليه عبر واتساب': 'This is your order estimate — not paid now, but arranged via WhatsApp',
+      'إرسال عبر واتساب — بدون دفع': 'Send via WhatsApp — no payment',
+      'سيفتح واتساب برسالة جاهزة — أرفق شعارك (PDF/صورة) وأرسل. لا دفع في الموقع.':
+        'WhatsApp will open with a prepared message — attach your logo (PDF/image) and send. No payment on the site.',
       '✗ كود الخصم غير صحيح': '✗ Invalid discount code',
 
       // Footer
@@ -2313,7 +2320,7 @@
       'تسويق بالعمولة': 'Affiliate Marketing',
       'هل أنت مسوق أو صانع محتوى؟ انضم لبرنامج العمولة الخاص بنا واربح على كل عميل تجلبه.':
         'Are you a marketer or content creator? Join our affiliate program and earn on every customer you bring.',
-      'تواصل عبر الإيميل': 'Contact via Email',
+      'تواصل عبر واتساب': 'Contact via WhatsApp',
       '© AORAV — ينبع، المملكة العربية السعودية': '© AORAV — Yanbu, Saudi Arabia',
       'منتجات مخصصة بتقنية NFC': 'Custom NFC-enabled products',
 
@@ -2813,6 +2820,7 @@
           } else {
             msg += `*Grand total: ${subtotal} SAR*${NL}`;
           }
+          msg += `${NL}_Note: this is an order estimate — there is no payment on the site; we arrange payment over WhatsApp._${NL}`;
         }
 
         if (notes) msg += `${NL}Notes: ${notes}${NL}`;
@@ -2950,10 +2958,25 @@
         cart.forEach((item, itemIdx) => {
           const p = products.find(x => x.id === item.productId);
           const lineTotal = calcLineTotal(item);
+          const hasVariants = productHasVariants(p);
+          const variant = hasVariants ? findVariant(p, item.variantId) : null;
+          const hidePriceForItem = itemHidesPrice(item);
           msg += `• ${p.name}${NL}`;
-          msg += `   الكمية: ${item.qty}${NL}`;
-          if (SHOW_PRICES && !p.hidePrice) msg += `   المجموع: ${lineTotal} ${CURRENCY}${NL}`;
-          if (SHOW_PRICES && p.priceTiers && p.priceTiers.length > 1) {
+          if (variant) msg += `   النسخة: ${variant.name}${NL}`;
+          let qtyText = String(item.qty);
+          if (hasVariants && variant && variant.packages) {
+            const pkg = findPackage(variant, item.qty);
+            if (pkg) qtyText = packageQtyLabel(pkg);
+          }
+          if (!(hasVariants && variant && variant.hidePrice)) {
+            msg += `   الكمية: ${qtyText}${NL}`;
+          }
+          if (SHOW_PRICES && !hidePriceForItem) {
+            msg += `   المجموع: ${lineTotal} ${CURRENCY}${NL}`;
+          } else if (hidePriceForItem) {
+            msg += `   السعر: يُحدد بعد المراجعة${NL}`;
+          }
+          if (SHOW_PRICES && !hasVariants && p.priceTiers && p.priceTiers.length > 1) {
             const breakdown = buildTierBreakdown(p, item.qty);
             if (breakdown) msg += `   التسعير: ${breakdown}${NL}`;
           }
@@ -3000,6 +3023,7 @@
           } else {
             msg += `*الإجمالي: ${subtotal} ${CURRENCY}*${NL}`;
           }
+          msg += `${NL}_ملاحظة: هذا تقدير الطلب — لا يوجد دفع عبر الموقع، ونتفق على الدفع عبر واتساب._${NL}`;
         }
         if (notes) msg += `${NL}الملاحظات: ${notes}${NL}`;
         msg += `${NL}سأرفق شعار المحل في الرسالة القادمة.`;
